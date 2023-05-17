@@ -1,9 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, {StrictMode} from 'react';
+import {createRoot} from 'react-dom/client';
 
-import './index.css';
+import './styles.css';
+import App from './App';
 
-ReactDOM.render(
-  <h1>Jogo da velha</h1>,
-  document.querySelector('#root')
+const root= createRoot(document.querySelector('#root'));
+root.render(
+  <StrictMode>
+    <App/>
+  </StrictMode>
 );
