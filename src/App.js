@@ -80,9 +80,13 @@ export default function Game(){
         else
             description= 'Go to game start';
 
+        const currentStyle= move===currentMove ? {fontWeight:'bold'} : {};
+
         return (
             <li key={move}>
-                <button onClick={() => jumpTo(move)}>{description}</button>
+                <button className='history-item' style={currentStyle} onClick={() => jumpTo(move)}>
+                    {description}
+                </button>
             </li>
         );
     });
