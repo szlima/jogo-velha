@@ -76,17 +76,20 @@ export default function Game(){
         let description;
 
         if(move > 0)
-            description= 'Go to move #' + move;
+            description= 'move #' + move;
         else
-            description= 'Go to game start';
-
-        const currentStyle= move===currentMove ? {fontWeight:'bold'} : {};
+            description= 'game start';
 
         return (
             <li key={move}>
-                <button className='history-item' style={currentStyle} onClick={() => jumpTo(move)}>
-                    {description}
-                </button>
+                {
+                    move === currentMove ? 
+                        <p style={{fontWeight:'bold'}}>You are at {description}</p>
+                    :
+                    <button className='history-item' onClick={() => jumpTo(move)}>
+                        Go to {description}
+                    </button>
+                }                 
             </li>
         );
     });
@@ -132,3 +135,4 @@ No React, é convencional usar nomes
 onSomething para props que representam eventos e 
 handleSomething para as definições das funções que lidam com esses eventos.
 */
+
