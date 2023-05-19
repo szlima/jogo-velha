@@ -23,7 +23,12 @@ function Board({xIsNext, squares, onPlay}){
         else
             nextSquares[i]= 'O';
 
-        onPlay(nextSquares);
+        const position= {
+            row: Math.floor(i/3),
+            col: i%3
+        };
+
+        onPlay(nextSquares, position);
     }
 
     const winner= calculateWinner(squares);
@@ -57,13 +62,19 @@ function Board({xIsNext, squares, onPlay}){
 }
 
 export default function Game(){
-    const [history, setHistory]= useState([Array(9).fill(null)]);
+    const [history, setHistory]= useState([{
+        squares: Array(9).fill(null),
+        position: null
+    }]);
     const [currentMove, setCurrentMove]= useState(0);
     const xIsNext= currentMove%2 === 0;
-    const currentSquares= history[currentMove];
+    const currentSquares= history[currentMove].squares;
 
-    function handlePlay(nextSquares){
-        const nextHistory= [...history.slice(0, currentMove+1), nextSquares];
+    function handlePlay(nextSquares, position){
+        const nextHistory= [...history.slice(0, currentMove+1), {
+            squares: nextSquares,
+            position
+        }];
         setHistory(nextHistory);
         setCurrentMove(nextHistory.length-1);
     }
@@ -72,11 +83,13 @@ export default function Game(){
         setCurrentMove(nextMove);
     }
 
-    const moves= history.map((squares, move) => {
+    const moves= history.map((step, move) => {
         let description;
 
         if(move > 0)
-            description= 'move #' + move;
+            description= 'move #' + move +
+                ' | Played at (' + step.position.row +
+                ',' + step.position.col + ')';
         else
             description= 'game start';
 
@@ -135,4 +148,3 @@ No React, é convencional usar nomes
 onSomething para props que representam eventos e 
 handleSomething para as definições das funções que lidam com esses eventos.
 */
-
