@@ -9,7 +9,7 @@ function Square({value, onSquareClick, squareStyle}){
     );
 }
 
-function Board({xIsNext, squares, onPlay}){
+function Board({xIsNext, squares, onPlay, noMoreMoves}){
     
     function handleClick(i){
 
@@ -35,6 +35,8 @@ function Board({xIsNext, squares, onPlay}){
     let status;
     if(winner)
         status= 'Winner: ' + winner.player;
+    else if(noMoreMoves)
+        status= 'Draw!';
     else
         status= 'Next player: ' + (xIsNext ? 'X' : 'O');
 
@@ -119,7 +121,7 @@ export default function Game(){
     return (
         <div className='game'>
             <div className='game-board'>
-                <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay}/>
+                <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} noMoreMoves={currentMove === 9}/>
             </div>
             <div className='game-info'>
                 <ol>
