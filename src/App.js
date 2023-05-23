@@ -40,34 +40,33 @@ function Board({xIsNext, squares, onPlay, noMoreMoves}){
     else
         status= 'Next player: ' + (xIsNext ? 'X' : 'O');
 
+    function renderSquare(i){
+        return <Square
+                    squareStyle={winner && winner.line.includes(i) ? {color:'red'} : {}}
+                    value={squares[i]} onSquareClick={() => handleClick(i)} key={`square${i}`}
+                />;
+    }
+
+    let k=0;
+    let boardRows= [];
+    for(let i=0; i<3; i++){
+
+        let positions= [];
+        for(let j=0; j<3; j++){
+            positions.push(renderSquare(k));
+            k++;
+        }
+        boardRows.push(
+            <div className="board-row" key={`row${i}`}>
+                {positions}
+            </div>
+        );
+    }
+
     return (
         <Fragment>
             <div className='status'>{status}</div>
-
-            <div className="board-row">
-                <Square squareStyle={winner && winner.line.includes(0) ? {color:'red'} : {}}
-                    value={squares[0]} onSquareClick={() => handleClick(0)}/>
-                <Square squareStyle={winner && winner.line.includes(1) ? {color:'red'} : {}} 
-                    value={squares[1]} onSquareClick={() => handleClick(1)}/>
-                <Square squareStyle={winner && winner.line.includes(2) ? {color:'red'} : {}}
-                    value={squares[2]} onSquareClick={() => handleClick(2)}/>
-            </div>
-            <div className="board-row">
-                <Square squareStyle={winner && winner.line.includes(3) ? {color:'red'} : {}}
-                    value={squares[3]} onSquareClick={() => handleClick(3)}/>
-                <Square squareStyle={winner && winner.line.includes(4) ? {color:'red'} : {}}
-                    value={squares[4]} onSquareClick={() => handleClick(4)}/>
-                <Square squareStyle={winner && winner.line.includes(5) ? {color:'red'} : {}}
-                    value={squares[5]} onSquareClick={() => handleClick(5)}/>
-            </div>
-            <div className="board-row">
-                <Square squareStyle={winner && winner.line.includes(6) ? {color:'red'} : {}}
-                    value={squares[6]} onSquareClick={() => handleClick(6)}/>
-                <Square squareStyle={winner && winner.line.includes(7) ? {color:'red'} : {}}
-                    value={squares[7]} onSquareClick={() => handleClick(7)}/>
-                <Square squareStyle={winner && winner.line.includes(8) ? {color:'red'} : {}}
-                    value={squares[8]} onSquareClick={() => handleClick(8)}/>
-            </div>
+            {boardRows}
         </Fragment>
     );
 }
