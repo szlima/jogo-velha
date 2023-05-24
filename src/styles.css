@@ -79,3 +79,7 @@ ul{
 .game-info{
     margin-left: 20px;
 }
+
+.history-item{
+    min-width: 290px;
+}
