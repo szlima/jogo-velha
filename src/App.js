@@ -71,6 +71,19 @@ function Board({xIsNext, squares, onPlay, noMoreMoves}){
     );
 }
 
+function InputOrder({value, checked, onChange}){
+
+    return (
+        <div>
+            <input type='radio' name='order'
+                id={value} value={value} checked={checked} onChange={onChange}/>
+            <label htmlFor={value}>
+                 {value.slice(0,1).toUpperCase() + value.slice(1)}
+            </label>
+        </div>
+    );
+}
+
 export default function Game(){
     const [history, setHistory]= useState([{
         squares: Array(9).fill(null),
@@ -79,6 +92,7 @@ export default function Game(){
     const [currentMove, setCurrentMove]= useState(0);
     const xIsNext= currentMove%2 === 0;
     const currentSquares= history[currentMove].squares;
+    const [ascendingMoves, setAscendingMoves]= useState(true);
 
     function handlePlay(nextSquares, position){
         const nextHistory= [...history.slice(0, currentMove+1), {
@@ -87,6 +101,10 @@ export default function Game(){
         }];
         setHistory(nextHistory);
         setCurrentMove(nextHistory.length-1);
+    }
+
+    function handleToggleOrder(ascendingOrder){
+        setAscendingMoves(ascendingOrder);
     }
 
     function jumpTo(nextMove){
@@ -123,8 +141,14 @@ export default function Game(){
                 <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} noMoreMoves={currentMove === 9}/>
             </div>
             <div className='game-info'>
+                <InputOrder value='ascending' checked={ascendingMoves} onChange={() => handleToggleOrder(true)}/>
+                <InputOrder value='descending' checked={!ascendingMoves} onChange={() => handleToggleOrder(false)}/>
+
                 <ol>
-                    {moves}
+                    {ascendingMoves ?
+                        moves :
+                        moves.map((move, i, array) => array[array.length-1-i])
+                    }
                 </ol>
             </div>
         </div>
