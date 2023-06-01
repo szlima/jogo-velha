@@ -125,9 +125,9 @@ export default function Game(){
             <li key={move}>
                 {
                     move === currentMove ? 
-                        <p style={{fontWeight:'bold'}}>You are at {description}</p>
+                        <p className='history-item bg-info'>You are at {description}</p>
                     :
-                    <button className='history-item' onClick={() => jumpTo(move)}>
+                    <button className='history-item btn btn-outline-info' onClick={() => jumpTo(move)}>
                         Go to {description}
                     </button>
                 }                 
