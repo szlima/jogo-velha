@@ -137,7 +137,7 @@ export default function Game(){
 
     return (
         <div className='game'>
-            <h1>Jogo da velha</h1>
+            <h1>Tic-Tac-Toe</h1>
             <div className='game-board'>
                 <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} noMoreMoves={currentMove === 9}/>
             </div>
