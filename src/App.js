@@ -1,9 +1,9 @@
 import React, {Fragment, useState} from 'react';
 
-function Square({value, onSquareClick, squareStyle, marginClass}){
+function Square({value, onSquareClick, squareStyle, squareClasses}){
 
     return (
-        <button className={`square ${marginClass}`} onClick={onSquareClick} style={squareStyle}>
+        <button className={`square ${squareClasses}`} onClick={onSquareClick} style={squareStyle}>
             {value}
         </button>
     );
@@ -42,6 +42,7 @@ function Board({xIsNext, squares, onPlay, noMoreMoves}){
 
     function renderSquare(i){
 
+        const winnerClass= winner && winner.line.includes(i) ? " text-info" : "";
         let marginClass= "";
 
         if(i%3 !== 0)
@@ -53,8 +54,7 @@ function Board({xIsNext, squares, onPlay, noMoreMoves}){
         if(Math.floor(i/3) !== 2)
             marginClass+= " margin-bottom";
 
-        return <Square marginClass={marginClass}
-                    squareStyle={winner && winner.line.includes(i) ? {color:'red'} : {}}
+        return <Square squareClasses={winnerClass + marginClass}
                     value={squares[i]} onSquareClick={() => handleClick(i)} key={`square${i}`}
                 />;
     }
