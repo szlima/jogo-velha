@@ -86,8 +86,8 @@ function Board({xIsNext, squares, onPlay, noMoreMoves}){
 function InputOrder({value, checked, onChange}){
 
     return (
-        <div className='sorting-option'>
-            <input type='radio' name='order'
+        <div className='sorting-option form-check'>
+            <input type='radio' name='order' className='form-check-input'
                 id={value} value={value} checked={checked} onChange={onChange}/>
             <label htmlFor={value}>
                  {value.slice(0,1).toUpperCase() + value.slice(1)}
