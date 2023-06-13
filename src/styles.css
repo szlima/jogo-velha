@@ -57,7 +57,7 @@ h1{
 }
 
 .status{
-    width: 100%;
+    width: 350px;
     margin-bottom: 20px;
     padding: 5px;
 }
@@ -137,6 +137,10 @@ li{
 
     .game-info{
         width: 350px;
+    }
+
+    .status{
+        width: 300px;
     }
 
     .square{

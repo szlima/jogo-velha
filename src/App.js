@@ -77,7 +77,7 @@ function Board({xIsNext, squares, onPlay, noMoreMoves}){
 
     return (
         <Fragment>
-            <div className='status'>{status}</div>
+            <div className='status border-top border-bottom border-info'>{status}</div>
             {boardRows}
         </Fragment>
     );
