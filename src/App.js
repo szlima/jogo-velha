@@ -150,21 +150,24 @@ export default function Game(){
     return (
         <div className='game'>
             <h1>Tic-Tac-Toe</h1>
-            <div className='game-board'>
-                <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} noMoreMoves={currentMove === 9}/>
-            </div>
-            <div className='game-info'>
-                <div className='sorting'>
-                    <InputOrder value='ascending' checked={ascendingMoves} onChange={() => handleToggleOrder(true)}/>
-                    <InputOrder value='descending' checked={!ascendingMoves} onChange={() => handleToggleOrder(false)}/>
-                </div>
 
-                <ol>
-                    {ascendingMoves ?
-                        moves :
-                        moves.map((move, i, array) => array[array.length-1-i])
-                    }
-                </ol>
+            <div className='game-wrap'>
+                <div className='game-board'>
+                    <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} noMoreMoves={currentMove === 9}/>
+                </div>
+                <div className='game-info'>
+                    <div className='sorting'>
+                        <InputOrder value='ascending' checked={ascendingMoves} onChange={() => handleToggleOrder(true)}/>
+                        <InputOrder value='descending' checked={!ascendingMoves} onChange={() => handleToggleOrder(false)}/>
+                    </div>
+
+                    <ol>
+                        {ascendingMoves ?
+                            moves :
+                            moves.map((move, i, array) => array[array.length-1-i])
+                        }
+                    </ol>
+                </div>
             </div>
         </div>
     );

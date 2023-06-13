@@ -24,21 +24,25 @@ body{
     height: 100vh;
 }
 
-#root, .game{
+#root, .game, .game-wrap{
     width: 100%;
     min-height: 100%;
 }
 
 .game{
+    padding: 20px;
+}
+
+.game-wrap{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    padding: 30px;
 }
 
 .game-board, .game-info{
     width: 100%;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -50,16 +54,11 @@ h1{
 
 .game-board{
     min-height: 350px;
-    margin: 20px 0;
-}
-
-.game-info{
-    padding: 20px;
 }
 
 .status{
     width: 100%;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     padding: 5px;
 }
 
@@ -75,7 +74,7 @@ h1{
     height: 100px;
 
     font-family: var(--font-square);
-    font-size: 36px;
+    font-size: 1.8rem;
     font-weight: bold;
 }
 
@@ -122,4 +121,35 @@ li{
     padding: 10px;
     margin: 2.5px 0;
     border-radius: 5px;
+}
+
+@media only screen and (min-width:900px){
+
+    .game-wrap{
+        flex-direction: row;
+        justify-content: center;
+        align-items: start;
+    }
+
+    .game-board{
+        width: 400px;
+    }
+
+    .game-info{
+        width: 350px;
+    }
+
+    .square{
+        font-size: 2.4rem;
+    }
+
+    .sorting{
+        margin-bottom: 10px;
+        font-size: .9rem;
+    }
+
+    .history-item{
+        width: 300px;
+        font-size: .8rem;
+    }
 }
