@@ -1,9 +1,9 @@
 import React, {Fragment, useState} from 'react';
 
-function Square({value, onSquareClick, squareStyle, squareClasses}){
+function Square({value, onSquareClick, squareClasses}){
 
     return (
-        <button className={`square ${squareClasses}`} onClick={onSquareClick} style={squareStyle}>
+        <button className={`square ${squareClasses}`} onClick={onSquareClick}>
             {value}
         </button>
     );
