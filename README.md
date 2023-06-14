@@ -8,6 +8,7 @@ Este projeto apresenta um jogo da velha construído a partir do tutorial oficial
 - CSS
 - JavaScript
 - React
+- Bootstrap
 
 ## :gear: Layout
 
