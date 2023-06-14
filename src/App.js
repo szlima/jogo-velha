@@ -1,9 +1,9 @@
 import React, {Fragment, useState} from 'react';
 
-function Square({value, onSquareClick, squareStyle}){
+function Square({value, onSquareClick, squareClasses}){
 
     return (
-        <button className="square" onClick={onSquareClick} style={squareStyle}>
+        <button className={`square ${squareClasses}`} onClick={onSquareClick}>
             {value}
         </button>
     );
@@ -41,8 +41,20 @@ function Board({xIsNext, squares, onPlay, noMoreMoves}){
         status= 'Next player: ' + (xIsNext ? 'X' : 'O');
 
     function renderSquare(i){
-        return <Square
-                    squareStyle={winner && winner.line.includes(i) ? {color:'red'} : {}}
+
+        const winnerClass= winner && winner.line.includes(i) ? " text-info" : "";
+        let marginClass= "";
+
+        if(i%3 !== 0)
+            marginClass+= " margin-left";
+        if(i%3 !== 2)
+            marginClass+= " margin-right";
+        if(Math.floor(i/3) !== 0)
+            marginClass+= " margin-top";
+        if(Math.floor(i/3) !== 2)
+            marginClass+= " margin-bottom";
+
+        return <Square squareClasses={winnerClass + marginClass}
                     value={squares[i]} onSquareClick={() => handleClick(i)} key={`square${i}`}
                 />;
     }
@@ -65,7 +77,7 @@ function Board({xIsNext, squares, onPlay, noMoreMoves}){
 
     return (
         <Fragment>
-            <div className='status'>{status}</div>
+            <div className='status border-top border-bottom border-info'>{status}</div>
             {boardRows}
         </Fragment>
     );
@@ -74,8 +86,8 @@ function Board({xIsNext, squares, onPlay, noMoreMoves}){
 function InputOrder({value, checked, onChange}){
 
     return (
-        <div>
-            <input type='radio' name='order'
+        <div className='sorting-option form-check'>
+            <input type='radio' name='order' className='form-check-input'
                 id={value} value={value} checked={checked} onChange={onChange}/>
             <label htmlFor={value}>
                  {value.slice(0,1).toUpperCase() + value.slice(1)}
@@ -125,9 +137,9 @@ export default function Game(){
             <li key={move}>
                 {
                     move === currentMove ? 
-                        <p style={{fontWeight:'bold'}}>You are at {description}</p>
+                        <p className='history-item bg-info'>You are at {description}</p>
                     :
-                    <button className='history-item' onClick={() => jumpTo(move)}>
+                    <button className='history-item btn btn-outline-info' onClick={() => jumpTo(move)}>
                         Go to {description}
                     </button>
                 }                 
@@ -137,19 +149,25 @@ export default function Game(){
 
     return (
         <div className='game'>
-            <div className='game-board'>
-                <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} noMoreMoves={currentMove === 9}/>
-            </div>
-            <div className='game-info'>
-                <InputOrder value='ascending' checked={ascendingMoves} onChange={() => handleToggleOrder(true)}/>
-                <InputOrder value='descending' checked={!ascendingMoves} onChange={() => handleToggleOrder(false)}/>
+            <h1>Tic-Tac-Toe</h1>
 
-                <ol>
-                    {ascendingMoves ?
-                        moves :
-                        moves.map((move, i, array) => array[array.length-1-i])
-                    }
-                </ol>
+            <div className='game-wrap'>
+                <div className='game-board'>
+                    <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} noMoreMoves={currentMove === 9}/>
+                </div>
+                <div className='game-info'>
+                    <div className='sorting'>
+                        <InputOrder value='ascending' checked={ascendingMoves} onChange={() => handleToggleOrder(true)}/>
+                        <InputOrder value='descending' checked={!ascendingMoves} onChange={() => handleToggleOrder(false)}/>
+                    </div>
+
+                    <ol>
+                        {ascendingMoves ?
+                            moves :
+                            moves.map((move, i, array) => array[array.length-1-i])
+                        }
+                    </ol>
+                </div>
             </div>
         </div>
     );
